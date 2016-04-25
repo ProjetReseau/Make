@@ -1,20 +1,35 @@
-LAGS1=-Wall -lpthread 
-CFLAGS2=-Wall -lpthread -lncurses
+#définition des variable
+CC = gcc
+FIRSTCOMPIL = no
+CFLAGS1 = -Wall -lpthread 
+CFLAGS2 = -Wall -lpthread -lncurses
+
+
+#Compilation
+
+#Condition si c'est la toute première compilation (Création du repertoire et fichier utile pour le serveur d'annuaire)
+ifeq ($(FIRSTCOMPIL),yes)
+all: fichier annuaire
+fichier:
+	mkdir Fichier
+annuaire:
+	touch ./Fichier/annuaire.txt
+endif
 
 all: client serveur clean
 client: clientNcurses.o file.o protocole.o
-		gcc -o client clientNcurses.o file.o protocole.o $(CFLAGS2)
+		$(CC) -o client clientNcurses.o file.o protocole.o $(CFLAGS2)
 serveur: serveur_annuaire.o fonction_annuaire.o file.o protocole.o
-		gcc -o serveur fonction_annuaire.o serveur_annuaire.o protocole.o file.o $(CFLAGS1)
+		$(CC) -o serveur fonction_annuaire.o serveur_annuaire.o protocole.o file.o $(CFLAGS1)
 clientNcurses.o: clientNcurses.c
-		gcc -c clientNcurses.c
+		$(CC) -c clientNcurses.c
 file.o: file.c
-		gcc -c file.c
+		$(CC) -c file.c
 protocole.o: protocole.c
-		gcc -c protocole.c
+		$(CC) -c protocole.c
 serveur_annuaire.o: serveur_annuaire.c
-		gcc -c serveur_annuaire.c
+		$(CC) -c serveur_annuaire.c
 fonction_annuaire.o: fonction_annuaire.c
-		gcc -c fonction_annuaire.c
+		$(CC) -c fonction_annuaire.c
 clean:
 	rm *.o
