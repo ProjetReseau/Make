@@ -1,6 +1,6 @@
 #définition des variable
 CC = gcc
-FIRSTCOMPIL = no
+FIRSTCOMPIL = yes
 CFLAGS1 = -Wall -lpthread 
 CFLAGS2 = -Wall -lpthread -lncurses
 
