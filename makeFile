@@ -1,0 +1,20 @@
+LAGS1=-Wall -lpthread 
+CFLAGS2=-Wall -lpthread -lncurses
+
+all: client serveur clean
+client: clientNcurse.o file.o protocole.o
+		gcc -o client clientNcurse.o file.o protocole.o $(CFLAGS2)
+serveur: serveur_annuaire.o fonction_annuaire.o file.o protocole.o
+		gcc -o serveur fonction_annuaire.o serveur_annuaire.o protocole.o file.o $(CFLAGS1)
+clientNcurse.o: clientNcurse.c
+		gcc -c clientNcurse.c
+file.o: file.c
+		gcc -c file.c
+protocole.o: protocole.c
+		gcc -c protocole.c
+serveur_annuaire.o: serveur_annuaire.c
+		gcc -c serveur_annuaire.c
+fonction_annuaire.o: fonction_annuaire.c
+		gcc -c fonction_annuaire.c
+clean:
+	rm *.o
